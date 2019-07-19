@@ -328,3 +328,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/Horeb
+/ClassLibrary1
+/dbHoreb queries.txt
