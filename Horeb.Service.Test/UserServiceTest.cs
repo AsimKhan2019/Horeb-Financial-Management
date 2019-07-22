@@ -71,7 +71,7 @@ namespace Horeb.Service.Test
 
         private void ThenUserShouldBeLoggedOut()
         {
-
+            Assert.IsFalse(_userService.IsUserLoggedIn());
         }
     }
 }
