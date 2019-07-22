@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateUserStatus.cs" />
     <Compile Include="IApplicationState.cs" />
     <Compile Include="IApplicationStateSetter.cs" />
     <Compile Include="Implementations\Application\ApplicationState.cs" />

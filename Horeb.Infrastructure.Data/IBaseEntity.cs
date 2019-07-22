@@ -18,7 +18,6 @@ namespace Horeb.Infrastructure.Data
         public virtual void InitializeEntity()
         {
             Name = string.Empty;
-            Id = string.Empty;
             CreatedOn = DateTime.Now;
             LastestUpdateOn = DateTime.Now;
             CreatedById = string.Empty;

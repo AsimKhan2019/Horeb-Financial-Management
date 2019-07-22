@@ -132,14 +132,18 @@ namespace Horeb.Service.Test
         public void UpdateUserActivity(string userId)
         {
             HorebUser user = HorebUser.Empty;
+            bool wasUserFound = false;
             foreach (HorebUser currentUser in _userCollection)
             {
                 if (currentUser.Id.Equals(userId))
                 {
+                    wasUserFound = true;
                     currentUser.LastActivityDate = DateTime.Now;
-                    Update(currentUser);
+                    user = currentUser;
                 }
             }
+            if(wasUserFound)
+                Update(user);
         }
     }
 }

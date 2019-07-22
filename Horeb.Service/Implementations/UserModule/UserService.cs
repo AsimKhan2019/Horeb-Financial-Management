@@ -69,11 +69,38 @@ namespace Horeb.Service.UserModule
         /// <param name="password">The password for the user</param>
         /// <returns> If successful return the newly created user. Returns an Emtpy user otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException">
-        public HorebUser CreateUser(string username, string password)
+        public HorebUser CreateUser(string username, string password, out CreateUserStatus status)
         {
-            SecureUtility.CheckParameter(ref username, true, true, true, 256, nameof(username));
-            SecureUtility.CheckPasswordParameter(ref password, 15, nameof(username));
+            if (!SecureUtility.ValidateParameter(ref username, true, true, true, 0))
+            {
+                status = CreateUserStatus.InvalidUserName;
+                return HorebUser.Empty;
+            }
+            if (!SecureUtility.ValidatePasswordParameter(ref password, 0))
+            {
+                status = CreateUserStatus.InvalidPassword;
+                return HorebUser.Empty;
+            }
+            if (_userDao.DoesUserExist(username))
+            {
+                status = CreateUserStatus.DuplicateUserName;
+                return HorebUser.Empty;
+            }
+            status = CreateUserStatus.Success;
             return _userDao.Insert(username, password);
+        }
+
+        /// <summary>Updates a user to the Horeb data source.</summary>
+        /// <param name="user">The user (HorebUser) to update.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        public void UpdateUser(HorebUser user)
+        {
+            if (user == null || user == HorebUser.Empty)
+                throw new ArgumentNullException(nameof(user));
+            string email = user.Email;
+            SecureUtility.CheckParameter(ref email, true, true, true, 256, nameof(email));
+            user.Email = email;
+            _userDao.Update(user);
         }
 
         /// <summary>Gets an Horeb users where the user name contains the specified username to match.</summary>
@@ -163,6 +190,13 @@ namespace Horeb.Service.UserModule
         public int GetNumberOfUsersOnline()
         {
             return _userDao.GetNumberOfUsersOnline();
+        }
+
+        /// <summary> Tells if a user exist on the data source.</summary>
+        /// <returns> True if the there is a Horeb user on the Horeb data source. False otherwise.</returns>
+        public bool DoesUserExist(string username)
+        {
+            return _userDao.DoesUserExist(username);
         }
     }
 }

@@ -10,16 +10,16 @@ namespace Horeb.Service.Test
     [TestClass]
     public class UserServiceTest
     {
-        private IUserService _userService;
-        private HorebUser[] _userArray;            
+        private IUserService _userService;                 
         private HorebUser _user;
 
         [TestInitialize]
         public void InitializeTestClass()
         {
+            MockApplicationState applicationState = new MockApplicationState();
             _userService = new UserService(new MockUserDao(),
-                new MockApplicationState(),
-                new MockApplicationState());
+                applicationState,
+                applicationState);
         }
 
         [TestMethod]
@@ -42,15 +42,14 @@ namespace Horeb.Service.Test
 
         private void GivenAUser()
         {
-            _user = new HorebUser("ArturoD93")
-            {
-                CreatedById = "Administrator26",
-                LastestUpdateById = "AnotherAdmin78",
-                Email = "fakeEmail@fake.com",
-                PhoneNumber = "8587744185",
-                IsActive = true,
-                LastActivityDate = DateTime.Now
-            };
+            _user = _userService.CreateUser("ArturoD93", "password123", out CreateUserStatus status);
+            _user.CreatedById = "Administrator26";
+            _user.LastestUpdateById = "AnotherAdmin78";
+            _user.Email = "fakeEmail@fake.com";
+            _user.PhoneNumber = "8587744185";
+            _user.IsActive = true;
+            _user.LastActivityDate = DateTime.Now;
+            _userService.UpdateUser(_user);
         }
 
         private void WhenAUserLogsIn()
