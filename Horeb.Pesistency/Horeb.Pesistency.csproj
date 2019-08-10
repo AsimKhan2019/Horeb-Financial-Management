@@ -31,11 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,20 +48,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\CachedDao.cs" />
+    <Compile Include="Data\Dao.cs" />
+    <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\WorkspaceFactory.cs" />
     <Compile Include="ICategoryDao.cs" />
+    <Compile Include="IReadOnlyWorkspace.cs" />
     <Compile Include="IUserDao.cs" />
     <Compile Include="IWalletDao.cs" />
+    <Compile Include="IWorkspaceContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ITransactionDao.cs" />
+    <Compile Include="Specification\ISpecification.cs" />
+    <Compile Include="Validation\DictionaryByType.cs" />
+    <Compile Include="Validation\SpecificationValidator.cs" />
+    <Compile Include="Validation\ValidatorRegistry.cs" />
+    <Compile Include="Workspace\DataStorage.cs" />
+    <Compile Include="Workspace\File\FileWorkspaceAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Horeb.Domain\Horeb.Domain.csproj">
       <Project>{476B4DFB-3449-4926-B961-95557FF02BA8}</Project>
       <Name>Horeb.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Horeb.Infrastructure.Data\Horeb.Infrastructure.Data.csproj">
+      <Project>{bf932a00-0384-4650-a804-a122b6886f06}</Project>
+      <Name>Horeb.Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Web.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Workspace\Sql\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
