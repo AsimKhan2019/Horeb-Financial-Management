@@ -61,7 +61,7 @@ namespace Horeb.Persistency.Text
         {
             var list = GetDataList(obj.GetType());
             var idt = obj as IValueClass<TId>;
-            if (idt != null)
+            if (idt != null && idt.Id != null)
             {
                 if (list.ContainsKey(idt.Id))
                     Update(idt);

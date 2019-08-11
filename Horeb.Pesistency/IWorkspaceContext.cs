@@ -11,8 +11,8 @@ namespace Horeb.Persistency
         void Delete<T>(Expression<Func<T, bool>> expression) where T : class;
         void Delete<T>(T item) where T : class;        
 
-        IEnumerable<T> All<T>(params Expression<Func<T, object>>[] includes) where T : class;
-        IEnumerable<T> All<T>(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes) where T : class;
+        IEnumerable<T> All<T>() where T : class;
+        IEnumerable<T> Where<T>(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes) where T : class;
 
         void Add<T>(T item) where T : class, IValueClass<string>;
         void Update<T>(T item) where T : class;

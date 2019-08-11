@@ -39,7 +39,7 @@ namespace Horeb.Pesistency.Workspace.File
                 collection.Insert(new BsonValue(item.Id) ,item);            
         }
 
-        public IEnumerable<T> All<T>(params Expression<Func<T, object>>[] includes) where T : class
+        public IEnumerable<T> All<T>() where T : class
         {
             using (var db = new LiteDatabase(_fileName))
             {
@@ -48,7 +48,7 @@ namespace Horeb.Pesistency.Workspace.File
             }
         }
 
-        public IEnumerable<T> All<T>(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes) where T : class
+        public IEnumerable<T> Where<T>(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes) where T : class
         {
             using (var db = new LiteDatabase(_fileName))
             {
